@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import { DashboardPanel, MetricGauge, TimeSeriesChart, PieChart } from '@/components/grafana/dashboard-components';
 import { PerformanceMetricsDashboard, calculatePerformanceMetrics } from '@/components/performance-metrics';
 import { AdvancedSearchFilter } from '@/components/search-filter';
-import { useAlerts, AlertCenter, AlertToaster, createPriceAlert, detectAnomaly } from '@/lib/alerts-system';
+import { AlertCenter, AlertToaster, showAlertToast } from '@/components/alert-center';
+import { useAlerts, createPriceAlert, detectAnomaly } from '@/lib/alerts-system';
 import useSWR from 'swr';
 
 interface DashboardData {
@@ -35,7 +36,13 @@ export default function GrafanaDashboard() {
       dashboardData.portfolio.forEach(holding => {
         const priceAlert = createPriceAlert(holding.symbol, Math.random() * 500, 300, 'above');
         if (priceAlert) {
-          addAlert(priceAlert);
+          const alertData = {
+            ...priceAlert,
+            id: Math.random().toString(36).substr(2, 9),
+            timestamp: new Date(),
+          };
+          addAlert(alertData);
+          showAlertToast(alertData);
         }
       });
     }, 45000);

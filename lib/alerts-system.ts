@@ -1,8 +1,4 @@
-'use client';
-
 import React from 'react';
-import toast, { Toaster } from 'react-hot-toast';
-import { AlertCircle, TrendingUp, TrendingDown, Bell } from 'lucide-react';
 
 export interface Alert {
   id: string;
@@ -26,23 +22,6 @@ export function useAlerts() {
     };
 
     setAlerts(prev => [newAlert, ...prev].slice(0, 10));
-
-    // Show toast notification
-    const icon = alert.type === 'anomaly' ? <AlertCircle className="w-5 h-5" /> :
-                 alert.type === 'price' ? <TrendingUp className="w-5 h-5" /> :
-                 alert.type === 'plChange' ? <TrendingDown className="w-5 h-5" /> :
-                 <Bell className="w-5 h-5" />;
-
-    toast.custom((t) => (
-      <div className="flex gap-3 rounded-lg bg-card border border-border p-4 shadow-lg">
-        <div className="text-primary">{icon}</div>
-        <div className="flex-1">
-          <p className="font-semibold text-sm text-foreground">{alert.title}</p>
-          <p className="text-xs text-muted-foreground">{alert.message}</p>
-        </div>
-      </div>
-    ));
-
     return id;
   }, []);
 
@@ -57,40 +36,9 @@ export function useAlerts() {
   return { alerts, addAlert, removeAlert, clearAll };
 }
 
-// Alert display component
-export function AlertCenter({ alerts, onRemove }: { alerts: Alert[]; onRemove: (id: string) => void }) {
-  if (alerts.length === 0) return null;
-
-  return (
-    <div className="fixed bottom-4 right-4 z-50 max-w-sm space-y-2">
-      {alerts.map(alert => (
-        <div
-          key={alert.id}
-          className="animate-slide-in rounded-lg bg-card border border-border p-3 shadow-lg"
-        >
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex-1">
-              <p className="font-semibold text-sm text-foreground">{alert.title}</p>
-              <p className="text-xs text-muted-foreground mt-1">{alert.message}</p>
-              <p className="text-xs text-muted-foreground/50 mt-1">
-                {alert.timestamp.toLocaleTimeString()}
-              </p>
-            </div>
-            <button
-              onClick={() => onRemove(alert.id)}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-            >
-              ✕
-            </button>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-export function AlertToaster() {
-  return <Toaster position="top-right" />;
+// Helper to get alert icon type
+export function getAlertIconType(alertType: Alert['type']): 'anomaly' | 'price' | 'plChange' | 'info' {
+  return alertType;
 }
 
 // Price alert checker
