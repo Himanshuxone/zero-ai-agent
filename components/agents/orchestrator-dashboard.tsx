@@ -8,7 +8,8 @@ import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { TrendingUp, BarChart3, Briefcase, LineChart } from "lucide-react";
+import { TrendingUp, BarChart3, Briefcase, LineChart, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
 // Orchestrator: The "Dashboard Master"
 // Coordinates all 4 agents and provides unified layout
@@ -33,47 +34,69 @@ export function OrchestratorDashboard() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border/50 bg-card/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 lg:px-6">
-          <div className="flex items-center gap-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent shadow-lg">
-              <TrendingUp className="h-5 w-5 text-primary-foreground" />
-            </div>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-4"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent shadow-lg"
+            >
+              <Zap className="h-5 w-5 text-primary-foreground" />
+            </motion.div>
             <div>
               <h1 className="text-lg font-bold tracking-tight">Zero AI Agent</h1>
               <p className="text-xs text-muted-foreground">
                 Multi-Agent Investment Dashboard
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Agent Status Indicators */}
           <div className="hidden items-center gap-3 md:flex">
             <span className="text-xs font-medium text-muted-foreground">Agents:</span>
-            {agentStatuses.map((agent) => {
+            {agentStatuses.map((agent, i) => {
               const Icon = agent.icon;
               return (
-                <Badge
+                <motion.div
                   key={agent.name}
-                  variant={agent.active ? "default" : "secondary"}
-                  className={`gap-1.5 px-3 py-1 text-xs font-medium ${agent.loading ? "animate-pulse" : ""}`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.1 }}
                 >
-                  <Icon className="h-3 w-3" />
-                  <span
-                    className={`h-1.5 w-1.5 rounded-full ${
-                      agent.loading
-                        ? "bg-warning"
-                        : agent.active
-                          ? "bg-success"
-                          : "bg-muted-foreground"
-                    }`}
-                  />
-                  {agent.name}
-                </Badge>
+                  <Badge
+                    variant={agent.active ? "default" : "secondary"}
+                    className={`gap-1.5 px-3 py-1 text-xs font-medium ${agent.loading ? "animate-pulse" : ""}`}
+                  >
+                    <Icon className="h-3 w-3" />
+                    <motion.span
+                      className={`h-1.5 w-1.5 rounded-full ${
+                        agent.loading
+                          ? "bg-warning"
+                          : agent.active
+                            ? "bg-success"
+                            : "bg-muted-foreground"
+                      }`}
+                      animate={agent.active ? { scale: [1, 1.2, 1] } : {}}
+                      transition={{ repeat: Infinity, duration: 2 }}
+                    />
+                    {agent.name}
+                  </Badge>
+                </motion.div>
               );
             })}
           </div>
 
-          {/* Theme Toggle */}
+          {/* Theme Toggle & Grafana Link */}
           <div className="flex items-center gap-3">
+            <a
+              href="/grafana"
+              className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg bg-primary/10 hover:bg-primary/20 px-3 py-2"
+            >
+              Grafana Dashboard
+            </a>
             <ThemeToggle />
           </div>
         </div>
@@ -82,26 +105,35 @@ export function OrchestratorDashboard() {
       {/* Main Dashboard Grid */}
       <main className="mx-auto max-w-screen-2xl p-4 lg:p-6">
         {/* Orchestrator Status Card */}
-        <Card className="mb-6 overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
-          <CardHeader className="border-b border-border/30 bg-gradient-to-r from-primary/5 to-accent/5 py-4">
-            <CardTitle className="flex items-center gap-3 text-base">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent text-sm font-bold text-primary-foreground shadow-md">
-                O
-              </span>
-              <span className="font-semibold">Orchestrator: Dashboard Master</span>
-              <Badge variant="outline" className="ml-auto border-primary/30 bg-primary/5">
-                {selectedTicker ? "Active" : "Awaiting Selection"}
-              </Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="py-4">
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              {selectedTicker
-                ? `Coordinating agents for ${selectedTicker}. All agents are fetching and processing data in parallel.`
-                : "Select a ticker using Agent 2 (Navigation) to activate all agents and view real-time data."}
-            </p>
-          </CardContent>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <Card className="mb-6 overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm">
+            <CardHeader className="border-b border-border/30 bg-gradient-to-r from-primary/5 to-accent/5 py-4">
+              <CardTitle className="flex items-center gap-3 text-base">
+                <motion.span
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                  className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent text-sm font-bold text-primary-foreground shadow-md"
+                >
+                  O
+                </motion.span>
+                <span className="font-semibold">Orchestrator: Dashboard Master</span>
+                <Badge variant="outline" className="ml-auto border-primary/30 bg-primary/5">
+                  {selectedTicker ? "Active" : "Awaiting Selection"}
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="py-4">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {selectedTicker
+                  ? `Coordinating agents for ${selectedTicker}. All agents are fetching and processing data in parallel.`
+                  : "Select a ticker using Agent 2 (Navigation) to activate all agents and view real-time data."}
+              </p>
+            </CardContent>
+          </Card>
+        </motion.div>
 
         {/* Dashboard Grid */}
         <div className="grid gap-6 lg:grid-cols-12">
