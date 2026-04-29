@@ -7,6 +7,7 @@ import { TradeSignalGenerator } from "./trade-signal-generator";
 import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { useRouter } from "next/navigation";
 import { TrendingUp, BarChart3, Briefcase, LineChart, Zap } from "lucide-react";
 import { motion } from "framer-motion";
