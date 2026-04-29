@@ -56,7 +56,7 @@ export function TradeSignalGenerator() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-4" />
-            Agent 4: Fundamental Analyst
+            Trade Signal Generator
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -74,7 +74,7 @@ export function TradeSignalGenerator() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-4" />
-            Agent 4: Fundamental Analyst
+            Trade Signal Generator
           </CardTitle>
         </CardHeader>
         <CardContent className="flex items-center justify-center py-8">
@@ -90,7 +90,7 @@ export function TradeSignalGenerator() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-4" />
-            Agent 4: Fundamental Analyst
+            Trade Signal Generator
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -119,7 +119,7 @@ export function TradeSignalGenerator() {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-4" />
-            Agent 4: Fundamental Analyst
+            Trade Signal Generator
           </CardTitle>
           {data?.source === "mock" && (
             <Badge variant="secondary" className="text-xs">

@@ -19,7 +19,7 @@ import {
 } from "@/lib/agents/ticker-data";
 import type { Region, AssetClass } from "@/lib/agents/types";
 
-// Agent 2: Navigation & Filter Agent
+// Ticker Selector & Pattern Analyzer
 // Renders UI dropdowns for Region > Asset Class > Ticker hierarchy
 
 export function TickerSelector() {
@@ -57,7 +57,7 @@ export function TickerSelector() {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-2" />
-            Agent 2: Navigation
+            Ticker Selector
           </CardTitle>
           {selectedTicker && (
             <Button variant="ghost" size="sm" onClick={reset}>

@@ -7,7 +7,7 @@ import { TradeSignalGenerator } from "./trade-signal-generator";
 import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { useRouter } from "next/navigation";
 import { TrendingUp, BarChart3, Briefcase, LineChart, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 // Coordinates all 4 agents and provides unified layout
 
 export function OrchestratorDashboard() {
+  const router = useRouter();
   const {
     selectedTicker,
     marketLoading,
@@ -91,17 +92,19 @@ export function OrchestratorDashboard() {
 
           {/* Theme Toggle & Navigation Links */}
           <div className="flex items-center gap-3">
+            {selectedTicker && (
+              <button
+                onClick={() => router.push(`/stock/${selectedTicker}`)}
+                className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg bg-primary/10 hover:bg-primary/20 px-3 py-2"
+              >
+                View Full Details
+              </button>
+            )}
             <a
               href="/recommendations"
               className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg bg-primary/10 hover:bg-primary/20 px-3 py-2"
             >
               Stock Ideas
-            </a>
-            <a
-              href="/grafana"
-              className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg bg-primary/10 hover:bg-primary/20 px-3 py-2"
-            >
-              Grafana
             </a>
             <ThemeToggle />
           </div>

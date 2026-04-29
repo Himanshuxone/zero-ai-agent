@@ -74,7 +74,7 @@ export function InvestmentAdvisor() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-3" />
-            Agent 3: Portfolio Manager
+            Investment Advisor
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -116,7 +116,7 @@ export function InvestmentAdvisor() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-3" />
-            Agent 3: Portfolio Manager
+            Investment Advisor
           </CardTitle>
         </CardHeader>
         <CardContent className="flex items-center justify-center py-8">
@@ -132,7 +132,7 @@ export function InvestmentAdvisor() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-3" />
-            Agent 3: Portfolio Manager
+            Investment Advisor
           </CardTitle>
         </CardHeader>
         <CardContent>

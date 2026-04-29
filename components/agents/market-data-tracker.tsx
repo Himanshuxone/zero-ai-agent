@@ -58,7 +58,7 @@ export function MarketDataTracker() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-1" />
-            Agent 1: Market Specialist
+            Market Data Tracker
           </CardTitle>
         </CardHeader>
         <CardContent className="flex h-80 items-center justify-center">
@@ -76,7 +76,7 @@ export function MarketDataTracker() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-1" />
-            Agent 1: Market Specialist
+            Market Data Tracker
           </CardTitle>
         </CardHeader>
         <CardContent className="flex h-80 items-center justify-center">
@@ -130,7 +130,7 @@ export function MarketDataTracker() {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-1" />
-            Agent 1: Market Specialist
+            Market Data Tracker
           </CardTitle>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="font-mono">
