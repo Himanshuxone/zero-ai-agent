@@ -71,6 +71,23 @@ A real-time investment dashboard powered by a **4-agent swarm architecture**. Th
 - **Responsive Design**: Works on desktop and mobile devices
 - **State Management**: Centralized state with Zustand for agent coordination
 - **Data Caching**: SWR for efficient data fetching and caching
+- **Professional Themes**: Three beautiful themes (Light, Dark, Vanguard Blue)
+
+---
+
+## Theme System
+
+The dashboard includes three professionally designed themes inspired by leading financial platforms:
+
+| Theme | Description | Best For |
+|-------|-------------|----------|
+| **Light** | Clean white theme with blue accents | Daytime use, presentations |
+| **Dark** | Professional black theme | Low-light environments, reduced eye strain |
+| **Vanguard Blue** | Premium blue gradient theme | Professional broker aesthetic |
+
+### Switching Themes
+
+Click the theme toggle button in the top-right corner of the header to switch between themes. Your preference is saved automatically.
 
 ---
 
@@ -249,7 +266,7 @@ multi-agent-dashboard/
 │   │   ├── agent-1-market-chart.tsx    # Live market charts
 │   │   ├── agent-2-navigation.tsx      # Navigation filters
 │   │   ├── agent-3-portfolio.tsx       # Portfolio manager
-│   │   └── agent-4-fundamentals.tsx    # Fundamental analysis
+│   │   ��── agent-4-fundamentals.tsx    # Fundamental analysis
 │   └── ui/                             # shadcn/ui components
 ├── lib/
 │   └── agents/
@@ -386,6 +403,33 @@ function getMockPortfolio(): PortfolioHolding[] {
 2. Add state to `lib/agents/orchestrator-store.ts`
 3. Create API route if needed in `app/api/`
 4. Import and add to `orchestrator-dashboard.tsx`
+
+### Customizing Themes
+
+Edit `app/globals.css` to modify theme colors:
+
+```css
+/* Light Theme */
+:root {
+  --background: oklch(0.98 0.005 250);
+  --primary: oklch(0.45 0.18 250);
+  /* ... other variables */
+}
+
+/* Dark Theme */
+.dark {
+  --background: oklch(0.12 0.02 250);
+  --primary: oklch(0.65 0.18 250);
+  /* ... other variables */
+}
+
+/* Blue Theme */
+.blue {
+  --background: oklch(0.2 0.08 250);
+  --primary: oklch(0.85 0.1 80);
+  /* ... other variables */
+}
+```
 
 ---
 
