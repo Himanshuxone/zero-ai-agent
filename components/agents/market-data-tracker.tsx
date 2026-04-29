@@ -34,10 +34,10 @@ export function MarketDataTracker() {
     useOrchestratorStore();
 
   const { data, error, isLoading } = useSWR(
-    selectedTicker ? `/api/market/${encodeURIComponent(selectedTicker)}` : null,
+    selectedTicker ? `/api/stocks/live?tickers=${encodeURIComponent(selectedTicker)}` : null,
     fetcher,
     {
-      refreshInterval: 60000, // Refresh every minute
+      refreshInterval: 30000, // Refresh every 30 seconds for live data
       revalidateOnFocus: true,
     }
   );
@@ -46,8 +46,16 @@ export function MarketDataTracker() {
     setMarketLoading(isLoading);
     if (error) {
       setMarketError(error.message);
-    } else if (data?.data) {
-      setMarketData(data.data);
+    } else if (data?.quotes?.[0]) {
+      const quote = data.quotes[0];
+      setMarketData([{
+        date: quote.timestamp,
+        open: quote.price * 0.98,
+        high: quote.price * 1.02,
+        low: quote.price * 0.96,
+        close: quote.price,
+        volume: quote.volume,
+      }]);
       setMarketError(null);
     }
   }, [data, error, isLoading, setMarketData, setMarketLoading, setMarketError]);

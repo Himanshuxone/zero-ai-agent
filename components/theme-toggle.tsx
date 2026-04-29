@@ -9,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sun, Moon, Palette, Check } from "lucide-react";
+import { Sun, Moon, Check } from "lucide-react";
 
 const themes = [
   {
@@ -25,13 +25,6 @@ const themes = [
     description: "Professional black",
     icon: Moon,
     color: "bg-zinc-900",
-  },
-  {
-    value: "blue" as const,
-    label: "Vanguard Blue",
-    description: "Premium blue theme",
-    icon: Palette,
-    color: "bg-blue-900",
   },
 ];
 
