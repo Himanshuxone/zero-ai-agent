@@ -8,12 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 import type { PortfolioHolding } from "@/lib/agents/types";
 
-// Agent 3: Portfolio Manager
-// Shows user's holdings and calculates real-time P&L
+// Investment Advisor Agent
+// Analyzes portfolio holdings and provides P&L insights with recommendations
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export function Agent3Portfolio() {
+export function InvestmentAdvisor() {
   const {
     selectedTicker,
     marketData,
@@ -157,7 +157,7 @@ export function Agent3Portfolio() {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-3" />
-            Agent 3: Portfolio Manager
+            Investment Advisor
           </CardTitle>
           {data?.source === "mock" && (
             <Badge variant="secondary" className="text-xs">

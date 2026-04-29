@@ -1,9 +1,9 @@
 "use client";
 
-import { Agent1MarketChart } from "./agent-1-market-chart";
-import { Agent2Navigation } from "./agent-2-navigation";
-import { Agent3Portfolio } from "./agent-3-portfolio";
-import { Agent4Fundamentals } from "./agent-4-fundamentals";
+import { MarketDataTracker } from "./market-data-tracker";
+import { TickerSelector } from "./ticker-selector";
+import { InvestmentAdvisor } from "./investment-advisor";
+import { TradeSignalGenerator } from "./trade-signal-generator";
 import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,10 +23,10 @@ export function OrchestratorDashboard() {
   } = useOrchestratorStore();
 
   const agentStatuses = [
-    { name: "Market", active: !!selectedTicker, loading: marketLoading, icon: TrendingUp },
-    { name: "Navigation", active: true, loading: false, icon: BarChart3 },
-    { name: "Portfolio", active: !!selectedTicker, loading: portfolioLoading, icon: Briefcase },
-    { name: "Fundamentals", active: !!selectedTicker, loading: fundamentalLoading, icon: LineChart },
+    { name: "Market Tracker", active: !!selectedTicker, loading: marketLoading, icon: TrendingUp },
+    { name: "Ticker Selector", active: true, loading: false, icon: BarChart3 },
+    { name: "Investment Advisor", active: !!selectedTicker, loading: portfolioLoading, icon: Briefcase },
+    { name: "Trade Signals", active: !!selectedTicker, loading: fundamentalLoading, icon: LineChart },
   ];
 
   return (
@@ -89,13 +89,19 @@ export function OrchestratorDashboard() {
             })}
           </div>
 
-          {/* Theme Toggle & Grafana Link */}
+          {/* Theme Toggle & Navigation Links */}
           <div className="flex items-center gap-3">
+            <a
+              href="/recommendations"
+              className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg bg-primary/10 hover:bg-primary/20 px-3 py-2"
+            >
+              Stock Ideas
+            </a>
             <a
               href="/grafana"
               className="text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors rounded-lg bg-primary/10 hover:bg-primary/20 px-3 py-2"
             >
-              Grafana Dashboard
+              Grafana
             </a>
             <ThemeToggle />
           </div>
@@ -137,38 +143,38 @@ export function OrchestratorDashboard() {
 
         {/* Dashboard Grid */}
         <div className="grid gap-6 lg:grid-cols-12">
-          {/* Left Column: Navigation */}
+          {/* Left Column: Ticker Selector */}
           <div className="lg:col-span-3">
-            <Agent2Navigation />
+            <TickerSelector />
           </div>
 
-          {/* Center Column: Market Chart */}
+          {/* Center Column: Market Data */}
           <div className="lg:col-span-6">
-            <Agent1MarketChart />
+            <MarketDataTracker />
           </div>
 
-          {/* Right Column: Portfolio */}
+          {/* Right Column: Investment Advisor */}
           <div className="lg:col-span-3">
-            <Agent3Portfolio />
+            <InvestmentAdvisor />
           </div>
 
-          {/* Bottom Row: Fundamentals */}
+          {/* Bottom Row: Trade Signals */}
           <div className="lg:col-span-12">
-            <Agent4Fundamentals />
+            <TradeSignalGenerator />
           </div>
         </div>
 
         {/* Architecture Info */}
         <div className="mt-8 rounded-xl border border-border/50 bg-card/30 p-6 backdrop-blur-sm">
-          <h3 className="text-sm font-semibold text-foreground">Multi-Agent Architecture</h3>
-          <p className="mt-1 text-xs text-muted-foreground">Powered by a coordinated swarm of specialized AI agents</p>
+          <h3 className="text-sm font-semibold text-foreground">Multi-Agent Investment System</h3>
+          <p className="mt-1 text-xs text-muted-foreground">Four specialized AI agents working in coordination for optimal investment decisions</p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {[
-              { id: "O", name: "Orchestrator", desc: "Coordinates all agents and manages global state", color: "from-primary to-accent" },
-              { id: "1", name: "Agent 1", desc: "Live Market Specialist - Fetches real-time data", color: "from-chart-1 to-chart-1/70" },
-              { id: "2", name: "Agent 2", desc: "Navigation Agent - Handles UI and filtering", color: "from-chart-2 to-chart-2/70" },
-              { id: "3", name: "Agent 3", desc: "Portfolio Manager - Reads holdings from Excel", color: "from-chart-3 to-chart-3/70" },
-              { id: "4", name: "Agent 4", desc: "Fundamental Analyst - Company data analysis", color: "from-chart-4 to-chart-4/70" },
+              { id: "O", name: "Orchestrator", desc: "Master coordinator for all agent actions and state management", color: "from-primary to-accent" },
+              { id: "1", name: "Market Tracker", desc: "Real-time market data collection and live quote streaming", color: "from-chart-1 to-chart-1/70" },
+              { id: "2", name: "Pattern Analyzer", desc: "Technical analysis with RSI, MACD, trend detection", color: "from-chart-2 to-chart-2/70" },
+              { id: "3", name: "Investment Advisor", desc: "Generates buy/sell recommendations with ROI projections", color: "from-chart-3 to-chart-3/70" },
+              { id: "4", name: "Trade Signals", desc: "Creates entry/exit points based on portfolio constraints", color: "from-chart-4 to-chart-4/70" },
             ].map((agent) => (
               <div key={agent.id} className="rounded-lg border border-border/50 bg-card/50 p-4 transition-all hover:border-primary/30 hover:shadow-md">
                 <div className="flex items-center gap-2">

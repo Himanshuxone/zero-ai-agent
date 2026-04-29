@@ -22,7 +22,7 @@ import type { Region, AssetClass } from "@/lib/agents/types";
 // Agent 2: Navigation & Filter Agent
 // Renders UI dropdowns for Region > Asset Class > Ticker hierarchy
 
-export function Agent2Navigation() {
+export function TickerSelector() {
   const {
     selectedRegion,
     selectedAssetClass,

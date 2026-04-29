@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/table";
 import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 
-// Agent 4: Fundamental Analyst
-// Displays company information and historical trends
+// Trade Signal Generator Agent
+// Generates buy/sell signals and entry/exit points based on technical analysis
 
 const fetcher = (url: string) =>
   fetch(url).then((res) => {
@@ -24,7 +24,7 @@ const fetcher = (url: string) =>
     return res.json();
   });
 
-export function Agent4Fundamentals() {
+export function TradeSignalGenerator() {
   const {
     selectedTicker,
     setCompanyInfo,

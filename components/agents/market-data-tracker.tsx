@@ -17,8 +17,8 @@ import { Badge } from "@/components/ui/badge";
 import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 import type { MarketData } from "@/lib/agents/types";
 
-// Agent 1: Live Market Specialist
-// Renders candlestick chart for selected ticker
+// Market Data Tracker Agent
+// Streams real-time market data and displays live candlestick charts
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -29,7 +29,7 @@ interface CandleData extends MarketData {
   displayDate: string;
 }
 
-export function Agent1MarketChart() {
+export function MarketDataTracker() {
   const { selectedTicker, setMarketData, setMarketLoading, setMarketError } =
     useOrchestratorStore();
 
