@@ -63,38 +63,63 @@ A real-time investment dashboard powered by a **4-agent swarm architecture**. Th
 
 ## Features
 
-- **Real-time Market Data**: Live candlestick charts with automatic refresh
+- **Real-time Market Data**: Yahoo Finance integration for live candlestick charts and prices
+- **Interactive Charts**: Tooltips, drill-down capabilities, MACD indicators, and smooth animations
+- **Real-time Alerts**: Price alerts, P&L change notifications, and market anomaly detection
+- **Advanced Search & Filtering**: Debounced autocomplete with multi-select filters and sorting
+- **Performance Metrics Dashboard**: Sharpe ratio, volatility, maximum drawdown calculations
+- **Grafana-Style Dashboard**: Resizable panels, customizable metrics, professional visualizations
+- **Portfolio Tracking**: Real-time P&L calculations from Excel holdings
 - **Multi-region Support**: North America, Europe, Asia, and Global markets
 - **Asset Class Filtering**: Equity, Forex, Crypto, and Commodity support
-- **Portfolio Tracking**: Real-time P&L calculations from Excel holdings
-- **Fundamental Analysis**: Company descriptions, ratings, and historical trends
-- **Responsive Design**: Works on desktop and mobile devices
-- **State Management**: Centralized state with Zustand for agent coordination
-- **Data Caching**: SWR for efficient data fetching and caching
+- **Animated UI/UX**: Framer Motion animations for smooth transitions and micro-interactions
+- **Professional Themes**: Light, Dark, and Vanguard Blue themes with seamless switching
+- **State Management**: Centralized Zustand store for agent coordination
+- **Data Caching**: SWR for efficient fetching and real-time updates
 
 ---
 
-## Quick Start
+## Theme System
 
-### Option 1: Deploy to Vercel (Recommended)
+The dashboard includes three professionally designed themes inspired by leading financial platforms:
 
-1. **Click the Deploy Button** or visit [v0.dev](https://v0.dev) and import this project
+| Theme | Description | Best For |
+|-------|-------------|----------|
+| **Light** | Clean white theme with blue accents | Daytime use, presentations |
+| **Dark** | Professional black theme | Low-light environments, reduced eye strain |
+| **Vanguard Blue** | Premium blue gradient theme | Professional broker aesthetic |
 
-2. **Connect to GitHub**:
-   - In v0, click the settings button (top right)
-   - Go to "Git" section
-   - Connect your GitHub repository
+### Switching Themes
 
-3. **Deploy**:
-   - Click "Publish" in the top right
-   - Your app will be live on Vercel in seconds
+Click the theme toggle button in the top-right corner of the header to switch between themes. Your preference is saved automatically.
 
-### Option 2: Clone and Deploy
+---
+
+## Quick Start & Deployment
+
+### Via v0 Interface (Easiest - Recommended)
+
+1. **Push to GitHub**:
+   - Click **Settings** (gear icon) → **Git**
+   - Click **"Push changes"** to sync to `v0/himanshusdec8-4763-150925f2` branch
+
+2. **Automatic Vercel Deployment**:
+   - Vercel automatically detects the push
+   - Build starts automatically
+   - Preview URL generated in ~3-5 minutes
+   - Production deployment after PR approval
+
+3. **View Live Dashboard**:
+   - Click the preview URL to see the deployed app
+   - Test all features: theme switching, agent coordination, alerts
+   - Try Grafana dashboard at `/grafana` path
+
+### Via GitHub & Vercel CLI (Advanced)
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/multi-agent-dashboard.git
-cd multi-agent-dashboard
+git clone https://github.com/Himanshuxone/zero-ai-agent.git
+cd zero-ai-agent
 
 # Install dependencies
 pnpm install
@@ -102,8 +127,17 @@ pnpm install
 # Run locally
 pnpm dev
 
-# Deploy to Vercel
-pnpm dlx vercel
+# Visit http://localhost:3000
+```
+
+### Environment Variables
+
+The app uses **free Yahoo Finance API** (no credentials needed). For production, add optional `.env.local`:
+
+```env
+# Optional: Custom API configurations
+NEXT_PUBLIC_APP_NAME=Zero AI Agent
+NEXT_PUBLIC_REFRESH_INTERVAL=5000
 ```
 
 ---
@@ -116,19 +150,19 @@ pnpm dlx vercel
 - **pnpm** (recommended) or npm/yarn
 - **Git**
 
-### Step-by-Step Setup
+### Setup Instructions
 
 #### 1. Clone the Repository
 
 ```bash
 # Using HTTPS
-git clone https://github.com/YOUR_USERNAME/multi-agent-dashboard.git
+git clone https://github.com/Himanshuxone/zero-ai-agent.git
 
 # Using SSH
-git clone git@github.com:YOUR_USERNAME/multi-agent-dashboard.git
+git clone git@github.com:Himanshuxone/zero-ai-agent.git
 
 # Navigate to project
-cd multi-agent-dashboard
+cd zero-ai-agent
 ```
 
 #### 2. Install Dependencies
@@ -139,41 +173,32 @@ pnpm install
 
 # Or using npm
 npm install
-
-# Or using yarn
-yarn install
 ```
 
-#### 3. Create Sample Data Files (Optional)
-
-The app includes mock data by default, but you can create real Excel files:
-
-```bash
-# Run the sample data creation script
-pnpm dlx ts-node scripts/create-sample-data.ts
-```
-
-This creates:
-- `data/Portfolio.xlsx` - Your investment holdings
-- `data/CompanyData.xlsx` - Company fundamental data
-
-#### 4. Start Development Server
+#### 3. Run Development Server
 
 ```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Visit `http://localhost:3000` to see the dashboard
 
-### Development Commands
+#### 4. Test Features Locally
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start development server with hot reload |
-| `pnpm build` | Build for production |
-| `pnpm start` | Start production server |
-| `pnpm lint` | Run ESLint |
-| `pnpm type-check` | Run TypeScript type checking |
+- **Switch Themes**: Click theme toggle (top right)
+- **Navigate Tickers**: Use Agent 2 dropdown (Region → Asset Class → Ticker)
+- **View Grafana Dashboard**: Visit `http://localhost:3000/grafana`
+- **Check Console**: View agent coordination logs
+
+### Production Build
+
+```bash
+# Build for production
+pnpm build
+
+# Start production server
+pnpm start
+```
 
 ---
 
@@ -181,37 +206,35 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Deploy to Vercel (Recommended)
 
-#### Method 1: Via v0.dev
+#### Option 1: Automatic via v0 Git Push (Easiest)
 
-1. Open the project in v0.dev
-2. Click "Publish" in the top right corner
-3. Follow the prompts to deploy
+1. Click **Settings** → **Git** in v0
+2. Click **"Push changes"** to sync to GitHub
+3. Vercel automatically deploys on push
+4. Get preview URL in ~3-5 minutes
 
-#### Method 2: Via Vercel CLI
+#### Option 2: Via GitHub Integration
 
-```bash
-# Install Vercel CLI
-pnpm add -g vercel
-
-# Login to Vercel
-vercel login
-
-# Deploy
-vercel
-
-# Deploy to production
-vercel --prod
-```
-
-#### Method 3: Via GitHub Integration
-
-1. Push your code to GitHub
+1. Push code to `v0/himanshusdec8-4763-150925f2` branch
 2. Go to [vercel.com](https://vercel.com)
 3. Click "Import Project"
-4. Select your GitHub repository
-5. Click "Deploy"
+4. Select `zero-ai-agent` repository
+5. Deploy with one click
 
-### Environment Variables
+#### Option 3: Via Vercel CLI
+
+```bash
+# Login to Vercel
+pnpm dlx vercel login
+
+# Deploy preview
+pnpm dlx vercel
+
+# Deploy to production
+pnpm dlx vercel --prod
+```
+
+### Environment Variables (Optional)
 
 No environment variables are required for basic functionality. The app uses:
 - Yahoo Finance API (public, no key required)
@@ -229,52 +252,78 @@ No environment variables are required for basic functionality. The app uses:
 ## Project Structure
 
 ```
-multi-agent-dashboard/
+zero-ai-agent/
 ├── app/
 │   ├── api/
-│   │   ├── market/
-│   │   │   └── [ticker]/
-│   │   │       └── route.ts      # Agent 1: Market data API
-│   │   ├── portfolio/
-│   │   │   └── route.ts          # Agent 3: Portfolio API
-│   │   └── fundamentals/
-│   │       └── [ticker]/
-│   │           └── route.ts      # Agent 4: Fundamentals API
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx
+│   │   ├── yahoo/
+│   │   │   ├── quote/[ticker]/route.ts       # Yahoo Finance quotes
+│   │   │   └── chart/[ticker]/route.ts       # Yahoo Finance chart data
+│   │   ├── market/[ticker]/route.ts          # Agent 1: Market data
+│   │   ├── portfolio/route.ts                # Agent 3: Portfolio manager
+│   │   ├── fundamentals/[ticker]/route.ts    # Agent 4: Fundamentals
+│   │   └── ...
+│   ├── grafana/page.tsx                      # Grafana-style dashboard
+│   ├── globals.css                           # Theme tokens & animations
+│   ├── layout.tsx                            # Root layout with ThemeProvider
+│   └── page.tsx                              # Main dashboard page
 ├── components/
 │   ├── agents/
-│   │   ├── orchestrator-dashboard.tsx  # Main orchestrator
-│   │   ├── agent-1-market-chart.tsx    # Live market charts
-│   │   ├── agent-2-navigation.tsx      # Navigation filters
-│   │   ├── agent-3-portfolio.tsx       # Portfolio manager
-│   │   └── agent-4-fundamentals.tsx    # Fundamental analysis
-│   └── ui/                             # shadcn/ui components
+│   │   ├── orchestrator-dashboard.tsx        # Master orchestrator
+│   │   ├── agent-1-market-chart.tsx          # Live charts with animations
+│   │   ├── agent-2-navigation.tsx            # Ticker selection
+│   │   ├── agent-3-portfolio.tsx             # Portfolio analysis
+│   │   └── agent-4-fundamentals.tsx          # Company fundamentals
+│   ├── grafana/
+│   │   └── dashboard-components.tsx          # Grafana panels & metrics
+│   ├── search-filter.tsx                     # Advanced search & filters
+│   ├── performance-metrics.tsx               # Performance dashboard
+│   ├── theme-toggle.tsx                      # Theme switcher button
+│   ├── theme-provider.tsx                    # Next-themes provider
+│   └── ui/                                   # shadcn/ui components
 ├── lib/
-│   └── agents/
-│       ├── types.ts                    # TypeScript interfaces
-│       ├── orchestrator-store.ts       # Zustand state store
-│       └── ticker-data.ts              # Ticker configuration
-├── data/                               # Excel data files
-│   ├── Portfolio.xlsx
-│   └── CompanyData.xlsx
+│   ├── agents/
+│   │   ├── types.ts                          # TypeScript interfaces
+│   │   ├── orchestrator-store.ts             # Zustand store
+│   │   └── ticker-data.ts                    # Ticker database
+│   ├── alerts-system.ts                      # Real-time alerts
+│   └── ...
 ├── scripts/
-│   └── create-sample-data.ts           # Data generation script
+│   └── create-sample-data.ts                 # Sample data generator
+├── README.md                                 # This file
 ├── package.json
-└── README.md
+└── tsconfig.json
 ```
 
 ---
 
 ## API Reference
 
-### GET /api/market/[ticker]
+### Real-time Market Data Endpoints
 
-Fetches live market data for a ticker.
+#### GET /api/yahoo/quote/[ticker]
+
+Fetches latest quote data from Yahoo Finance.
 
 **Parameters:**
-- `ticker` (path): Stock/forex/crypto symbol (e.g., "AAPL", "EURUSD=X")
+- `ticker` (path): Stock symbol (e.g., "AAPL", "GOOGL", "EURUSD=X")
+
+**Response:**
+```json
+{
+  "ticker": "AAPL",
+  "price": 195.50,
+  "change": 2.35,
+  "changePercent": 1.22,
+  "timestamp": "2024-03-15T14:30:00Z"
+}
+```
+
+#### GET /api/yahoo/chart/[ticker]
+
+Fetches historical chart data (candlesticks).
+
+**Query Parameters:**
+- `range` (optional): "1d", "5d", "1mo", "3mo", "1y", "5y" (default: "1mo")
 
 **Response:**
 ```json
@@ -282,62 +331,125 @@ Fetches live market data for a ticker.
   "ticker": "AAPL",
   "data": [
     {
-      "date": "2024-03-15T14:00:00.000Z",
-      "open": 178.50,
-      "high": 179.20,
-      "low": 178.10,
-      "close": 178.90,
-      "volume": 45000000
+      "date": "2024-03-14",
+      "open": 193.20,
+      "high": 195.80,
+      "low": 193.10,
+      "close": 194.50,
+      "volume": 52000000
     }
-  ],
-  "source": "yahoo",
-  "meta": {
-    "currency": "USD",
-    "exchangeName": "NASDAQ"
-  }
+  ]
 }
 ```
 
-### GET /api/portfolio
+### Agent APIs
 
-Fetches user portfolio holdings.
+#### GET /api/market/[ticker]
 
-**Query Parameters:**
-- `ticker` (optional): Filter by specific ticker
+Agent 1: Fetches market analysis data.
 
-**Response:**
-```json
-{
-  "holdings": [
-    {
-      "ticker": "AAPL",
-      "shares": 50,
-      "buyPrice": 165.25,
-      "buyDate": "2024-01-15"
-    }
-  ],
-  "source": "excel"
-}
+#### GET /api/portfolio
+
+Agent 3: Fetches portfolio holdings and P&L.
+
+#### GET /api/fundamentals/[ticker]
+
+Agent 4: Fetches company fundamental data.
+
+---
+
+## Features Deep Dive
+
+### Real-time Alerts System
+
+The alerts system monitors portfolio changes and market conditions:
+
+```typescript
+// Price alert: Notify when ticker crosses threshold
+createPriceAlert({ ticker: "AAPL", threshold: 200, type: "above" });
+
+// P&L alert: Notify when portfolio gains/loses %
+createPnLAlert({ threshold: 5, type: "loss" });
+
+// Anomaly alert: Detect unusual market movements
+createAnomalyAlert({ volatilityThreshold: 2.5 });
 ```
 
-### GET /api/fundamentals/[ticker]
+### Grafana-Style Dashboard
 
-Fetches company fundamental data.
+Access at `/grafana` for professional metrics visualization:
+- Resizable panels with drag & drop
+- Time-series charts with MACD indicators
+- Portfolio allocation pie charts
+- Performance metrics gauges
+- Customizable panel sizes and layouts
 
-**Parameters:**
-- `ticker` (path): Stock symbol
+### Performance Metrics
 
-**Response:**
-```json
-{
-  "company": {
-    "ticker": "AAPL",
-    "name": "Apple Inc.",
-    "description": "...",
-    "rating": "A+",
-    "sector": "Technology",
-    "historicalTrend": [
-      { "year": 2023, "revenue": "$383.3B", "growth": "-2.8%" }
+Dashboard calculates:
+- **Return %**: Total portfolio return percentage
+- **Volatility**: Standard deviation of returns
+- **Sharpe Ratio**: Risk-adjusted returns
+- **Max Drawdown**: Largest peak-to-trough decline
+
+---
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| App won't start locally | Run `pnpm install` and `pnpm dev` |
+| Yahoo Finance API errors | Check internet connection, API might have rate limits |
+| Themes not persisting | Clear browser cache and localStorage |
+| Alerts not triggering | Check browser console for errors |
+| Grafana dashboard blank | Ensure ticker is selected first |
+
+---
+
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Commit changes: `git commit -m "Add feature"`
+4. Push to branch: `git push origin feature/your-feature`
+5. Open a Pull Request
+
+---
+
+## License
+
+MIT License - feel free to use this project for personal and commercial projects.
+
+---
+
+## Support & Contact
+
+- **GitHub Issues**: [Report bugs](https://github.com/Himanshuxone/zero-ai-agent/issues)
+- **Discussions**: [Ask questions](https://github.com/Himanshuxone/zero-ai-agent/discussions)
+- **Email**: Contact via GitHub
+
+---
+
+## Deployment Checklist
+
+Before deploying to production:
+
+- [ ] Test all 4 agents are working correctly
+- [ ] Verify theme switching works in production
+- [ ] Check alerts system notifications
+- [ ] Test Grafana dashboard panel resizing
+- [ ] Verify responsive design on mobile
+- [ ] Check performance metrics calculations
+- [ ] Test search and filter functionality
+- [ ] Monitor API response times
+- [ ] Set up Vercel analytics
+- [ ] Configure custom domain (optional)
+
+---
+
+**Happy trading! 🚀**
     ]
   },
   "source": "excel"
@@ -386,6 +498,33 @@ function getMockPortfolio(): PortfolioHolding[] {
 2. Add state to `lib/agents/orchestrator-store.ts`
 3. Create API route if needed in `app/api/`
 4. Import and add to `orchestrator-dashboard.tsx`
+
+### Customizing Themes
+
+Edit `app/globals.css` to modify theme colors:
+
+```css
+/* Light Theme */
+:root {
+  --background: oklch(0.98 0.005 250);
+  --primary: oklch(0.45 0.18 250);
+  /* ... other variables */
+}
+
+/* Dark Theme */
+.dark {
+  --background: oklch(0.12 0.02 250);
+  --primary: oklch(0.65 0.18 250);
+  /* ... other variables */
+}
+
+/* Blue Theme */
+.blue {
+  --background: oklch(0.2 0.08 250);
+  --primary: oklch(0.85 0.1 80);
+  /* ... other variables */
+}
+```
 
 ---
 

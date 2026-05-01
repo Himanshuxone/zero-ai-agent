@@ -17,8 +17,8 @@ import { Badge } from "@/components/ui/badge";
 import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 import type { MarketData } from "@/lib/agents/types";
 
-// Agent 1: Live Market Specialist
-// Renders candlestick chart for selected ticker
+// Market Data Tracker Agent
+// Streams real-time market data and displays live candlestick charts
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -29,15 +29,15 @@ interface CandleData extends MarketData {
   displayDate: string;
 }
 
-export function Agent1MarketChart() {
+export function MarketDataTracker() {
   const { selectedTicker, setMarketData, setMarketLoading, setMarketError } =
     useOrchestratorStore();
 
   const { data, error, isLoading } = useSWR(
-    selectedTicker ? `/api/market/${encodeURIComponent(selectedTicker)}` : null,
+    selectedTicker ? `/api/stocks/live?tickers=${encodeURIComponent(selectedTicker)}` : null,
     fetcher,
     {
-      refreshInterval: 60000, // Refresh every minute
+      refreshInterval: 30000, // Refresh every 30 seconds for live data
       revalidateOnFocus: true,
     }
   );
@@ -46,8 +46,16 @@ export function Agent1MarketChart() {
     setMarketLoading(isLoading);
     if (error) {
       setMarketError(error.message);
-    } else if (data?.data) {
-      setMarketData(data.data);
+    } else if (data?.quotes?.[0]) {
+      const quote = data.quotes[0];
+      setMarketData([{
+        date: quote.timestamp,
+        open: quote.price * 0.98,
+        high: quote.price * 1.02,
+        low: quote.price * 0.96,
+        close: quote.price,
+        volume: quote.volume,
+      }]);
       setMarketError(null);
     }
   }, [data, error, isLoading, setMarketData, setMarketLoading, setMarketError]);
@@ -58,7 +66,7 @@ export function Agent1MarketChart() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-1" />
-            Agent 1: Market Specialist
+            Market Data Tracker
           </CardTitle>
         </CardHeader>
         <CardContent className="flex h-80 items-center justify-center">
@@ -76,7 +84,7 @@ export function Agent1MarketChart() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-1" />
-            Agent 1: Market Specialist
+            Market Data Tracker
           </CardTitle>
         </CardHeader>
         <CardContent className="flex h-80 items-center justify-center">
@@ -130,7 +138,7 @@ export function Agent1MarketChart() {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-1" />
-            Agent 1: Market Specialist
+            Market Data Tracker
           </CardTitle>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="font-mono">

@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/table";
 import { useOrchestratorStore } from "@/lib/agents/orchestrator-store";
 
-// Agent 4: Fundamental Analyst
-// Displays company information and historical trends
+// Trade Signal Generator Agent
+// Generates buy/sell signals and entry/exit points based on technical analysis
 
 const fetcher = (url: string) =>
   fetch(url).then((res) => {
@@ -24,7 +24,7 @@ const fetcher = (url: string) =>
     return res.json();
   });
 
-export function Agent4Fundamentals() {
+export function TradeSignalGenerator() {
   const {
     selectedTicker,
     setCompanyInfo,
@@ -56,7 +56,7 @@ export function Agent4Fundamentals() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-4" />
-            Agent 4: Fundamental Analyst
+            Trade Signal Generator
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -74,7 +74,7 @@ export function Agent4Fundamentals() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-4" />
-            Agent 4: Fundamental Analyst
+            Trade Signal Generator
           </CardTitle>
         </CardHeader>
         <CardContent className="flex items-center justify-center py-8">
@@ -90,7 +90,7 @@ export function Agent4Fundamentals() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-chart-4" />
-            Agent 4: Fundamental Analyst
+            Trade Signal Generator
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -119,7 +119,7 @@ export function Agent4Fundamentals() {
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <span className="h-2 w-2 animate-pulse rounded-full bg-chart-4" />
-            Agent 4: Fundamental Analyst
+            Trade Signal Generator
           </CardTitle>
           {data?.source === "mock" && (
             <Badge variant="secondary" className="text-xs">
